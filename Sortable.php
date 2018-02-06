@@ -54,7 +54,12 @@ class Sortable extends Behavior {
              */
             $owner = $this->owner;
 
-            $owner->setAttribute($orderAttr, $owner->find()->where($where)->count());
+            $count = $owner->find();
+            if ($where != 1) {
+                $count->where($where);
+            }
+
+            $owner->setAttribute($orderAttr, $count->count());
         });
     }
 
